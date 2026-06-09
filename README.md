@@ -2,8 +2,6 @@
 
 Training-focused VLA pretraining and mid-training notes.
 
-This repository intentionally excludes agent/control-plane artifacts such as local logs, status files, backlog files, prompts, `.codex`, `.agents`, and generated workflow scaffolding.
-
 ## Browse
 
 The static page is committed at:
@@ -27,12 +25,10 @@ https://nv-sachdevkartik.github.io/pretraining-recipes/
 
 ## Scope
 
-Included content is limited to VLA training guidance:
+This repository focuses on the main VLA training content:
 
 - VLA pretraining and mid-training definitions
 - recipe and ablation guidance
 - dataset, action representation, architecture, infrastructure, and evaluation notes
 - Isaac-GR00T training-readiness case-study notes
 - primary paper/project references
-
-PDFs, datasets, checkpoints, and local agent files are not included.

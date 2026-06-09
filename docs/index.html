@@ -28,8 +28,8 @@ body{margin:0;background:#f7f8fa;color:#1f2933;font-family:system-ui,-apple-syst
 <main class="content">
 <section id="overview">
 <h1>VLA Pretraining and Mid-Training Recipes</h1>
-<p>This page is a training-focused extract of the VLA knowledge base. It excludes agent prompts, logs, status pages, backlog files, local workflow scaffolding, and other control-plane artifacts.</p>
-<p>The goal is to capture practical guidance for training vision-language-action models: when to pretrain, when to mid-train, what data and action interfaces matter, and where Isaac-GR00T is useful as an implementation case study.</p>
+<p>This page summarizes the main VLA pretraining and mid-training guidance: when to pretrain, when to mid-train, what data and action interfaces matter, and where Isaac-GR00T is useful as an implementation case study.</p>
+<p>The focus is practical training content for vision-language-action models, including recipes, ablations, data quality checks, infrastructure requirements, and evaluation gates.</p>
 </section>
 <section id="taxonomy">
 <h2>Training Taxonomy</h2>
@@ -68,12 +68,6 @@ body{margin:0;background:#f7f8fa;color:#1f2933;font-family:system-ui,-apple-syst
 <li>Curate embodied/spatial/VLA-aligned data rather than adding generic VLM data blindly.</li>
 <li>Measure early learning curves and held-out embodiment performance, not only final adapted task success.</li>
 </ul>
-<table><thead><tr><th>Recipe</th><th>Signal</th><th>Caveat</th></tr></thead><tbody>
-<tr><td>EmbodiedMidtrain</td><td>VLA-aligned VLM data selected for embodied relevance.</td><td>Code release was not confirmed in the local pass.</td></tr>
-<tr><td>Rethinking VLM Initialization</td><td>Embodied VQA, update strategy, robot-data pretraining.</td><td>Results are controlled but still benchmark-specific.</td></tr>
-<tr><td>Qwen-VLA progressive training</td><td>Action pretraining, multimodal continued pretraining, supervised phases.</td><td>Separate pretraining/mid-training claims from later supervised stages.</td></tr>
-<tr><td>X-VLA</td><td>Soft prompts per data source or embodiment.</td><td>Prompt identity can leak shortcuts if not evaluated carefully.</td></tr>
-</tbody></table>
 </section>
 <section id="data">
 <h2>Data Mixtures and Quality</h2>
@@ -83,7 +77,6 @@ body{margin:0;background:#f7f8fa;color:#1f2933;font-family:system-ui,-apple-syst
 <li>Audit mixture weights, corrupt samples, language quality, per-embodiment coverage, and benchmark leakage before scaling.</li>
 <li>Use human videos or synthetic trajectories only when they supply action-relevant latents, future states, or physically plausible trajectories.</li>
 </ul>
-<p>Common references: Open X-Embodiment for cross-robot mixtures, DROID/Bridge-style real robot data, GR00T-style humanoid data, and Qwen-VLA-style multi-task mixtures.</p>
 </section>
 <section id="architecture">
 <h2>Architecture and Initialization</h2>
@@ -141,7 +134,6 @@ body{margin:0;background:#f7f8fa;color:#1f2933;font-family:system-ui,-apple-syst
 <section id="gr00t">
 <h2>Isaac-GR00T Case Study</h2>
 <p>Reference analyzed: <code>/home/ksachdev/Isaac-GR00T</code> at commit <code>626af89d3e914ec92eab5323e23b9ed44a7b26c8</code>.</p>
-<h3>Readiness</h3>
 <table><thead><tr><th>Capability</th><th>Status</th><th>Notes</th></tr></thead><tbody>
 <tr><td>Fine-tuning from released GR00T checkpoint</td><td>Ready</td><td>Public docs and configs support this directly.</td></tr>
 <tr><td>Action-labeled mid-training on LeRobot-style datasets</td><td>Partially ready</td><td>Multiple datasets and mix ratios exist, but integrated validation is absent.</td></tr>
@@ -149,25 +141,6 @@ body{margin:0;background:#f7f8fa;color:#1f2933;font-family:system-ui,-apple-syst
 <tr><td>Human-video-only or latent-action pretraining</td><td>Not ready</td><td>Training requires action-labeled examples.</td></tr>
 <tr><td>Multi-node large-scale training</td><td>Partial</td><td>DeepSpeed hooks exist; memory, eval, data streaming, and resume determinism need hardening.</td></tr>
 </tbody></table>
-<h3>Useful Pieces</h3>
-<ul>
-<li>Qwen3-VL/Cosmos backbone initialization.</li>
-<li>Continuous flow-matching action head.</li>
-<li>Per-embodiment state/action configs.</li>
-<li>Relative action processing.</li>
-<li>Sharded mixture sampling with deterministic rank/worker partitioning.</li>
-<li>Config, processor, and statistics saving.</li>
-<li>Optional W&amp;B/profiling and DeepSpeed configuration.</li>
-</ul>
-<h3>Needed for Larger-Scale Training</h3>
-<ul>
-<li>Integrated validation for sharded mixtures.</li>
-<li>World-size-aware effective batch calculation.</li>
-<li>Reproducible or explicitly versioned resume behavior.</li>
-<li>Data manifests with dataset IDs, shard hashes, sampling weights, stats versions, and schema versions.</li>
-<li>Streaming/bounded-memory data pipelines for large parquet sets and relative-action stats.</li>
-<li>Non-action-labeled objectives for human video or latent-action pretraining if those goals matter.</li>
-</ul>
 </section>
 <section id="references">
 <h2>References</h2>
