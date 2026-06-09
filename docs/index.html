@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VLA Pretraining and Mid-Training Recipes</title>
+<style>
+body{margin:0;background:#f7f8fa;color:#1f2933;font-family:system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.58}.layout{display:grid;grid-template-columns:280px minmax(0,1fr);min-height:100vh}.nav{position:sticky;top:0;height:100vh;overflow:auto;background:#fff;border-right:1px solid #d9e2ec;padding:22px 16px}.nav strong{display:block;margin-bottom:14px}.nav a{display:block;color:#52606d;text-decoration:none;border-radius:6px;padding:7px 9px;font-size:14px}.nav a:hover{background:#e6fffb;color:#0f766e}.content{padding:42px min(7vw,84px)}section{background:#fff;border:1px solid #d9e2ec;border-radius:8px;max-width:1120px;padding:30px;margin-bottom:22px}h1{font-size:32px;margin:0 0 16px}h2{font-size:24px;margin-top:0}h3{font-size:18px;margin-top:24px}a{color:#0f766e}code{background:#eef2f7;border-radius:4px;font-family:monospace;padding:.12em .32em}table{border-collapse:collapse;display:block;overflow-x:auto;width:100%;margin:16px 0}th,td{border:1px solid #d9e2ec;padding:8px 10px;text-align:left;vertical-align:top}th{background:#f0f4f8}@media(max-width:860px){.layout{display:block}.nav{height:auto;position:relative}.content{padding:16px}section{padding:20px}}
+</style>
+</head>
+<body>
+<div class="layout">
+<nav class="nav">
+<strong>Training Recipes</strong>
+<a href="#overview">Overview</a>
+<a href="#taxonomy">Taxonomy</a>
+<a href="#pretraining">Pretraining</a>
+<a href="#midtraining">Mid-Training</a>
+<a href="#data">Data</a>
+<a href="#architecture">Architecture</a>
+<a href="#actions">Actions</a>
+<a href="#infrastructure">Infrastructure</a>
+<a href="#evaluation">Evaluation</a>
+<a href="#experiments">Experiments</a>
+<a href="#gr00t">GR00T Case Study</a>
+<a href="#references">References</a>
+</nav>
+<main class="content">
+<section id="overview">
+<h1>VLA Pretraining and Mid-Training Recipes</h1>
+<p>This page is a training-focused extract of the VLA knowledge base. It excludes agent prompts, logs, status pages, backlog files, local workflow scaffolding, and other control-plane artifacts.</p>
+<p>The goal is to capture practical guidance for training vision-language-action models: when to pretrain, when to mid-train, what data and action interfaces matter, and where Isaac-GR00T is useful as an implementation case study.</p>
+</section>
+<section id="taxonomy">
+<h2>Training Taxonomy</h2>
+<table><thead><tr><th>Stage</th><th>Definition</th><th>Typical data</th><th>In scope</th></tr></thead><tbody>
+<tr><td>Generic VLM/LLM pretraining</td><td>Broad language, vision, and multimodal representation learning before robot grounding.</td><td>Web text, image-text, video-text, general VQA.</td><td>Only as initialization context.</td></tr>
+<tr><td>VLA pretraining</td><td>Train a model to map observations and language to action-relevant outputs across tasks or embodiments.</td><td>Robot trajectories, human videos with latent actions, synthetic trajectories, auxiliary VLM data.</td><td>Yes.</td></tr>
+<tr><td>VLA mid-training</td><td>Bridge a pretrained VLM/VLA toward embodied action learning before narrow task adaptation.</td><td>Embodied VQA, robot trajectories, spatial reasoning data, action-relevant videos.</td><td>Yes.</td></tr>
+<tr><td>Task adaptation</td><td>Specialize to a target robot or task after base VLA training.</td><td>Target robot demonstrations.</td><td>Contrast only.</td></tr>
+</tbody></table>
+<p>Boundary rule: mid-training is not generic VLM pretraining because it is selected around embodied/action distributions, and it is not task fine-tuning because it should improve the broad initialization before committing to one task.</p>
+</section>
+<section id="pretraining">
+<h2>Pretraining Guidance</h2>
+<ul>
+<li>Use VLA pretraining when the target domain needs broad task, object, embodiment, or environment generalization that cannot be covered by a small downstream dataset.</li>
+<li>Default to initialized VLM or VLA weights unless from-scratch provenance, architecture research, or data-control requirements justify the cost.</li>
+<li>Gate scale-up on closed-loop benchmark improvements, not only lower action loss.</li>
+<li>Evaluate base/pretrained behavior directly before claiming pretraining capability.</li>
+</ul>
+<h3>Recipe Patterns</h3>
+<table><thead><tr><th>Recipe</th><th>Action interface</th><th>Transferable lesson</th></tr></thead><tbody>
+<tr><td>RT-2-style VLM-to-VLA</td><td>Actions as language/action tokens.</td><td>Co-training can preserve semantic priors while adding control.</td></tr>
+<tr><td>OpenVLA / Open X-Embodiment</td><td>Discretized robot action tokens.</td><td>Heterogeneous robot data can produce open generalist VLA backbones.</td></tr>
+<tr><td>pi0</td><td>Flow-matching continuous action expert.</td><td>Continuous action generation is strong for high-frequency control.</td></tr>
+<tr><td>LAPA / LAWM</td><td>Latent actions from video/world modeling.</td><td>Can reduce dependence on ground-truth robot action labels.</td></tr>
+<tr><td>VLA Foundry</td><td>Staged LLM-to-VLM-to-VLA or initialized backbone path.</td><td>A unified training stack reduces pipeline stitching risk.</td></tr>
+<tr><td>Qwen-VLA</td><td>DiT flow decoder with embodiment-aware prompts.</td><td>Shared action-and-trajectory framing can span manipulation, navigation, and trajectory prediction.</td></tr>
+</tbody></table>
+</section>
+<section id="midtraining">
+<h2>Mid-Training Guidance</h2>
+<p>VLA mid-training is a bridge stage that uses embodied, action-relevant, or robot-aligned data to adapt an initialized VLM/VLA before target task adaptation.</p>
+<ul>
+<li>Use it when initialized VLM features are weak on early robot-action learning.</li>
+<li>Prefer representation-preserving updates first: frozen backbone, LoRA, top-layer tuning, then full tuning only if justified.</li>
+<li>Curate embodied/spatial/VLA-aligned data rather than adding generic VLM data blindly.</li>
+<li>Measure early learning curves and held-out embodiment performance, not only final adapted task success.</li>
+</ul>
+<table><thead><tr><th>Recipe</th><th>Signal</th><th>Caveat</th></tr></thead><tbody>
+<tr><td>EmbodiedMidtrain</td><td>VLA-aligned VLM data selected for embodied relevance.</td><td>Code release was not confirmed in the local pass.</td></tr>
+<tr><td>Rethinking VLM Initialization</td><td>Embodied VQA, update strategy, robot-data pretraining.</td><td>Results are controlled but still benchmark-specific.</td></tr>
+<tr><td>Qwen-VLA progressive training</td><td>Action pretraining, multimodal continued pretraining, supervised phases.</td><td>Separate pretraining/mid-training claims from later supervised stages.</td></tr>
+<tr><td>X-VLA</td><td>Soft prompts per data source or embodiment.</td><td>Prompt identity can leak shortcuts if not evaluated carefully.</td></tr>
+</tbody></table>
+</section>
+<section id="data">
+<h2>Data Mixtures and Quality</h2>
+<ul>
+<li>Robot trajectories need synchronized images, states, actions, language, masks where available, and embodiment metadata.</li>
+<li>Record action units, reference frames, gripper semantics, control frequency, horizon, cameras, and normalization statistics.</li>
+<li>Audit mixture weights, corrupt samples, language quality, per-embodiment coverage, and benchmark leakage before scaling.</li>
+<li>Use human videos or synthetic trajectories only when they supply action-relevant latents, future states, or physically plausible trajectories.</li>
+</ul>
+<p>Common references: Open X-Embodiment for cross-robot mixtures, DROID/Bridge-style real robot data, GR00T-style humanoid data, and Qwen-VLA-style multi-task mixtures.</p>
+</section>
+<section id="architecture">
+<h2>Architecture and Initialization</h2>
+<table><thead><tr><th>Component</th><th>Choices</th><th>Recommendation</th></tr></thead><tbody>
+<tr><td>Vision-language backbone</td><td>Frozen VLM, LoRA, top-layer tuning, full tuning, from scratch.</td><td>Start with pretrained VLM and preserve useful representations unless evidence supports full tuning.</td></tr>
+<tr><td>Connector/projector</td><td>Random init, VLM projector reuse, action-conditioned connector.</td><td>Train early and ablate whether it bottlenecks action learning.</td></tr>
+<tr><td>Temporal module</td><td>History, video encoder, recurrence/cache features.</td><td>Add only when temporal disambiguation matters; validate latency.</td></tr>
+<tr><td>Action head</td><td>Discrete tokens, latent actions, diffusion, flow matching, hybrid.</td><td>Match action frequency and precision requirements.</td></tr>
+<tr><td>Embodiment conditioning</td><td>Text prompts, soft prompts, IDs, per-embodiment modules.</td><td>Required for heterogeneous robots; avoid one head per platform unless scale is limited.</td></tr>
+</tbody></table>
+</section>
+<section id="actions">
+<h2>Action Representation</h2>
+<table><thead><tr><th>Representation</th><th>Good fit</th><th>Main risk</th></tr></thead><tbody>
+<tr><td>Discrete action tokens</td><td>Autoregressive VLM reuse and language/action unification.</td><td>Poor tokenization damages precision and smoothness.</td></tr>
+<tr><td>Latent actions</td><td>Video pretraining without robot action labels.</td><td>Latents may not decode cleanly to target robot actions.</td></tr>
+<tr><td>Continuous diffusion</td><td>Multimodal high-dimensional actions.</td><td>Sampling latency and denoising stability.</td></tr>
+<tr><td>Continuous flow matching</td><td>Fast continuous action chunks.</td><td>Needs careful horizon, timestep, and latency tuning.</td></tr>
+<tr><td>Relative EEF actions</td><td>Cross-embodiment human/robot transfer.</td><td>Requires reliable frame conventions and relative statistics.</td></tr>
+</tbody></table>
+</section>
+<section id="infrastructure">
+<h2>Large-Scale Training Infrastructure</h2>
+<ul>
+<li>Use streaming or sharded datasets with deterministic sampling and resumable provenance.</li>
+<li>Track global batch size, gradient accumulation, precision, checkpoint policy, and actual distributed world size.</li>
+<li>Save model, optimizer, scheduler, RNG, processor/tokenizer, dataset statistics, config, code commit, and data manifest.</li>
+<li>Monitor loss, action loss by modality, data-loader latency, throughput, skipped/corrupt samples, and per-dataset sampling.</li>
+<li>Do not scale until checkpoint resume, data mixture sampling, and closed-loop evaluation are validated.</li>
+</ul>
+</section>
+<section id="evaluation">
+<h2>Evaluation</h2>
+<table><thead><tr><th>Level</th><th>Purpose</th><th>Examples</th></tr></thead><tbody>
+<tr><td>Data sanity</td><td>Catch schema, normalization, and action-frame bugs.</td><td>Trajectory visualizations, action histograms, language samples.</td></tr>
+<tr><td>Open-loop</td><td>Fast regression checks.</td><td>Action MSE/MAE, token accuracy, next-action likelihood.</td></tr>
+<tr><td>Closed-loop simulation</td><td>Policy-level competence.</td><td>LIBERO, SimplerEnv, RoboCasa, RoboTwin, LBM Eval.</td></tr>
+<tr><td>Cross-embodiment</td><td>Transfer.</td><td>Held-out robot family or action convention.</td></tr>
+<tr><td>Real robot</td><td>Deployment realism.</td><td>Small standardized task suite with safety gates.</td></tr>
+</tbody></table>
+<p>Open-loop metrics are smoke tests. They do not replace closed-loop success.</p>
+</section>
+<section id="experiments">
+<h2>Minimum Experiments Before Scale-Up</h2>
+<ul>
+<li>Scratch versus initialized backbone on a small budget.</li>
+<li>Frozen backbone versus LoRA versus top-layer tuning versus full tuning.</li>
+<li>Discrete tokenizer versus continuous flow/diffusion on the same data.</li>
+<li>Action horizon and observation/state history length.</li>
+<li>Relative versus absolute action encoding where EEF actions are available.</li>
+<li>With and without low-quality or synthetic data slices.</li>
+<li>Closed-loop benchmark improvement, not just lower action loss.</li>
+</ul>
+</section>
+<section id="gr00t">
+<h2>Isaac-GR00T Case Study</h2>
+<p>Reference analyzed: <code>/home/ksachdev/Isaac-GR00T</code> at commit <code>626af89d3e914ec92eab5323e23b9ed44a7b26c8</code>.</p>
+<h3>Readiness</h3>
+<table><thead><tr><th>Capability</th><th>Status</th><th>Notes</th></tr></thead><tbody>
+<tr><td>Fine-tuning from released GR00T checkpoint</td><td>Ready</td><td>Public docs and configs support this directly.</td></tr>
+<tr><td>Action-labeled mid-training on LeRobot-style datasets</td><td>Partially ready</td><td>Multiple datasets and mix ratios exist, but integrated validation is absent.</td></tr>
+<tr><td>From-scratch VLA pretraining</td><td>Not ready</td><td>No full LLM/VLM/VLA staged pretraining stack.</td></tr>
+<tr><td>Human-video-only or latent-action pretraining</td><td>Not ready</td><td>Training requires action-labeled examples.</td></tr>
+<tr><td>Multi-node large-scale training</td><td>Partial</td><td>DeepSpeed hooks exist; memory, eval, data streaming, and resume determinism need hardening.</td></tr>
+</tbody></table>
+<h3>Useful Pieces</h3>
+<ul>
+<li>Qwen3-VL/Cosmos backbone initialization.</li>
+<li>Continuous flow-matching action head.</li>
+<li>Per-embodiment state/action configs.</li>
+<li>Relative action processing.</li>
+<li>Sharded mixture sampling with deterministic rank/worker partitioning.</li>
+<li>Config, processor, and statistics saving.</li>
+<li>Optional W&amp;B/profiling and DeepSpeed configuration.</li>
+</ul>
+<h3>Needed for Larger-Scale Training</h3>
+<ul>
+<li>Integrated validation for sharded mixtures.</li>
+<li>World-size-aware effective batch calculation.</li>
+<li>Reproducible or explicitly versioned resume behavior.</li>
+<li>Data manifests with dataset IDs, shard hashes, sampling weights, stats versions, and schema versions.</li>
+<li>Streaming/bounded-memory data pipelines for large parquet sets and relative-action stats.</li>
+<li>Non-action-labeled objectives for human video or latent-action pretraining if those goals matter.</li>
+</ul>
+</section>
+<section id="references">
+<h2>References</h2>
+<ul>
+<li>RT-2: <a href="https://arxiv.org/abs/2307.15818">arXiv</a>, <a href="https://robotics-transformer2.github.io/">project</a></li>
+<li>Open X-Embodiment: <a href="https://arxiv.org/abs/2310.08864">arXiv</a>, <a href="https://robotics-transformer-x.github.io/">project</a></li>
+<li>OpenVLA: <a href="https://arxiv.org/abs/2406.09246">arXiv</a>, <a href="https://openvla.github.io/">project</a>, <a href="https://github.com/openvla/openvla">code</a></li>
+<li>pi0 / OpenPI: <a href="https://arxiv.org/abs/2410.24164">arXiv</a>, <a href="https://github.com/Physical-Intelligence/openpi">code</a></li>
+<li>FAST: <a href="https://arxiv.org/abs/2501.09747">arXiv</a>, <a href="https://www.pi.website/research/fast">project</a></li>
+<li>LAPA: <a href="https://arxiv.org/abs/2410.11758">arXiv</a>, <a href="https://latentactionpretraining.github.io/">project</a></li>
+<li>VLA Foundry: <a href="https://arxiv.org/abs/2604.19728">arXiv</a>, <a href="https://tri-ml.github.io/vla_foundry/">project</a>, <a href="https://github.com/TRI-ML/vla_foundry">code</a></li>
+<li>EmbodiedMidtrain: <a href="https://arxiv.org/abs/2604.20012">arXiv</a>, <a href="https://adu2021.github.io/blog/EmbodiedMidtrain/">project</a></li>
+<li>Rethinking VLM Initialization: <a href="https://arxiv.org/abs/2605.25802">arXiv</a>, <a href="https://github.com/AFeng-x/Rethink_VLA_Initialization">code</a></li>
+<li>Qwen-VLA: <a href="https://arxiv.org/abs/2605.30280">arXiv</a>, <a href="https://github.com/QwenLM/Qwen-VLA">code</a></li>
+<li>Wall-OSS-0.5: <a href="https://arxiv.org/abs/2605.30877">arXiv</a>, <a href="https://github.com/X-Square-Robot/wall-x">code</a></li>
+<li>vla-eval: <a href="https://arxiv.org/abs/2603.13966">arXiv</a>, <a href="https://github.com/allenai/vla-evaluation-harness">code</a></li>
+<li>Isaac-GR00T: <a href="https://github.com/NVIDIA/Isaac-GR00T">GitHub</a></li>
+</ul>
+</section>
+</main>
+</div>
+</body>
+</html>
