@@ -1,6 +1,9 @@
 title: VLA Training Recipes
 description: VLA pretraining and mid-training data recipes.
 
+include:
+  - _static
+
 defaults:
   - scope:
       path: ""
