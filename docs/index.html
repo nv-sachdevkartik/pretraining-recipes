@@ -3,217 +3,64 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>VLA Pretraining and Mid-Training Dataset Map</title>
+<title>Pretraining Recipes Documentation</title>
 <style>
-:root {
-  color-scheme: light;
-  --ink: #14213d;
-  --muted: #5f6b7a;
-  --line: #d8dee8;
-  --paper: #ffffff;
-  --soft: #f6f8fb;
-  --accent: #0b6bcb;
-  --accent-2: #0f766e;
-  --warn: #8a5a00;
-}
-* { box-sizing: border-box; }
 body {
-  margin: 0;
+  color: #14213d;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   line-height: 1.55;
-  color: var(--ink);
-  background: var(--paper);
+  margin: 0;
 }
-header {
-  border-bottom: 1px solid var(--line);
-  background: #eef4fb;
+main {
+  max-width: 880px;
+  padding: 44px 24px;
+  margin: 0 auto;
 }
-.wrap { max-width: 1180px; margin: 0 auto; padding: 28px 24px; }
-h1 { margin: 0 0 10px; font-size: clamp(30px, 4vw, 54px); line-height: 1.05; letter-spacing: 0; }
-h2 { margin: 42px 0 14px; font-size: 26px; line-height: 1.2; letter-spacing: 0; }
-h3 { margin: 24px 0 10px; font-size: 19px; letter-spacing: 0; }
-p { margin: 0 0 14px; }
-a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
-.lede { max-width: 980px; font-size: 18px; color: #24364f; }
-.meta { color: var(--muted); font-size: 14px; margin-top: 8px; }
-nav { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
-nav a { border: 1px solid var(--line); border-radius: 6px; padding: 7px 10px; background: #fff; text-decoration: none; color: #19395f; font-size: 14px; }
-.section { border-top: 1px solid var(--line); }
-.callout { border-left: 4px solid var(--accent-2); background: #eefaf7; padding: 14px 16px; margin: 16px 0; }
-.note { border-left: 4px solid var(--warn); background: #fff8e8; padding: 14px 16px; margin: 16px 0; }
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; margin: 16px 0; }
-.card { border: 1px solid var(--line); border-radius: 8px; padding: 16px; background: var(--soft); }
-.card h3 { margin-top: 0; }
-table { width: 100%; border-collapse: collapse; margin: 14px 0 24px; font-size: 14px; }
-th, td { border: 1px solid var(--line); padding: 10px 12px; vertical-align: top; }
-th { background: #edf2f7; text-align: left; font-weight: 700; }
-tbody tr:nth-child(even) td { background: #fafbfc; }
-ul { margin: 8px 0 18px 22px; padding: 0; }
-li { margin: 6px 0; }
-code { background: #eef2f7; border-radius: 4px; padding: 1px 4px; }
-.tag { display: inline-block; border: 1px solid var(--line); border-radius: 999px; padding: 2px 8px; margin: 2px 4px 2px 0; font-size: 12px; color: #334155; background: #fff; }
-footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
-@media (max-width: 720px) {
-  .wrap { padding: 22px 16px; }
-  table { display: block; overflow-x: auto; white-space: normal; }
-  th, td { min-width: 180px; }
+h1 {
+  font-size: clamp(32px, 5vw, 56px);
+  line-height: 1.05;
+  margin: 0 0 14px;
+}
+a {
+  color: #0f766e;
+}
+.panel {
+  background: #f6f8fb;
+  border: 1px solid #d8dee8;
+  border-radius: 8px;
+  padding: 18px;
+  margin: 22px 0;
+}
+code {
+  background: #eef2f7;
+  border-radius: 4px;
+  padding: 2px 5px;
 }
 </style>
 </head>
 <body>
-<header>
-  <div class="wrap">
-    <h1>VLA Pretraining and Mid-Training Dataset Map</h1>
-    <p class="lede">A training-focused research note for vision-language-action models. It separates what to use for broad VLA pretraining from what to use for mid-training, and incorporates survey guidance, Open X/OpenVLA-style robot recipes, GR00T/RDT/pi0/Qwen-VLA-style recipe papers, and the Cortex 2.0 deployment-data pattern.</p>
-    <p class="meta">Updated 2026-06-12. Scope: dataset requirements, recipe evidence, quality gates, and public/proprietary data boundaries for VLA systems.</p>
-    <nav>
-      <a href="#decision">Decision View</a>
-      <a href="#pretraining">Pretraining Datasets</a>
-      <a href="#midtraining">Mid-Training Datasets</a>
-      <a href="#recipes">Recipe Source Map</a>
-      <a href="#cortex">Cortex 2.0</a>
-      <a href="#quality">Quality Gates</a>
-      <a href="#references">References</a>
-    </nav>
-  </div>
-</header>
 <main>
-<section class="wrap" id="decision">
-  <h2>Decision View</h2>
-  <div class="callout">
-    <p><strong>Senior robotics read:</strong> do not think of VLA data as one bucket of demonstrations. A serious VLA recipe needs at least six data assets: broad vision-language data, cross-embodiment robot trajectories, target-domain robot/fleet data, human video or egocentric bridge data, simulation/synthetic/world-model data, and reward/outcome/failure telemetry.</p>
+  <h1>Pretraining Recipes</h1>
+  <p>
+    This repository has been rebuilt as a Sphinx documentation project using
+    the Sphinx Book Theme. The maintained docs source lives in
+    <code>docs/</code>, with chapters under <code>docs/source/</code>.
+  </p>
+  <div class="panel">
+    <p><strong>Build locally:</strong></p>
+    <pre><code>cd docs
+python -m pip install -r requirements.txt
+make current-docs</code></pre>
   </div>
-  <table>
-    <thead><tr><th>Stage</th><th>Main goal</th><th>Dataset families needed</th><th>What not to do</th></tr></thead>
-    <tbody>
-      <tr><td>VLA pretraining</td><td>Learn reusable visual, language, action, temporal, and physical representations before target-task specialization.</td><td>Open X-Embodiment-style robot trajectories, diverse lab/fleet teleoperation, in-domain deployment recordings, human egocentric/instructional video, simulated robot rollouts, auxiliary VL data, and outcome/failure telemetry.</td><td>Do not rely only on web image-text data or only on small clean demos. Both miss contact dynamics, embodiment constraints, and recovery behavior.</td></tr>
-      <tr><td>VLA mid-training</td><td>Bridge a pretrained VLM or robot foundation model into embodied control before final finetuning.</td><td>Embodied VLM QA/instruction data, robot trajectories close to the target embodiment, action-token or latent-action bridge data, synthetic curriculum rollouts, small high-quality in-domain demos, and reward/progress labels.</td><td>Do not mix unrelated embodiments without action normalization, camera metadata, and held-out closed-loop evals.</td></tr>
-      <tr><td>Final finetuning</td><td>Adapt the policy to a concrete robot, site, task family, controller, and safety envelope.</td><td>Target robot demonstrations, interventions, failures, recoveries, perturbations, and evaluation traces.</td><td>Do not consume all deployment data during pretraining. Keep sites, tasks, objects, and time windows for holdout.</td></tr>
-    </tbody>
-  </table>
-  <div class="grid">
-    <div class="card"><h3>Minimum public baseline</h3><p>Open X-Embodiment/OXE, BridgeData V2, DROID, RoboNet or similar robot corpora, plus VL pretraining data and a robot evaluation suite.</p></div>
-    <div class="card"><h3>Minimum serious internal baseline</h3><p>Public robot mix plus target-embodiment teleop, in-domain deployment logs, failure/intervention labels, sensor metadata, and held-out site/task splits.</p></div>
-    <div class="card"><h3>Deployment-grade baseline</h3><p>Continuous fleet telemetry, active data collection, reward/progress/failure heads, simulation stress tests, and a loop that turns deployment failures into new data.</p></div>
-  </div>
-</section>
-<section class="wrap section" id="pretraining">
-  <h2>VLA Pretraining Dataset Families</h2>
-  <p>Pretraining should maximize coverage of visual variation, instructions, embodiment variation, action spaces, temporal dynamics, and physical outcomes. The most useful data is not always the cleanest: recoveries, failed attempts, and operator interventions are often the data that teaches a model where control is hard.</p>
-  <table>
-    <thead><tr><th>Family</th><th>Representative datasets or sources</th><th>Why it is needed</th><th>Required metadata</th><th>Risk</th></tr></thead>
-    <tbody>
-      <tr><td>Cross-embodiment robot trajectories</td><td>Open X-Embodiment, RT-1/RT-X, BridgeData V2, DROID, RoboNet, Language Table, Fractal, BC-Z, TACO, LIBERO-style datasets.</td><td>Provides broad manipulation diversity across robots, cameras, objects, tasks, and action parameterizations. This is the core evidence base behind RT-X, Octo, and OpenVLA-style recipes.</td><td>Language instruction, video, robot state, action, camera calibration where possible, embodiment ID, gripper/action convention, episode outcome.</td><td>Embodiment and action heterogeneity can create negative transfer without normalization and per-source quality control.</td></tr>
-      <tr><td>In-domain real robot data</td><td>Company teleoperation logs, lab fleet rollouts, production robot recordings, Cortex 2.0-style industrial deployment data.</td><td>Gives target-domain object distributions, contact states, failures, recoveries, workcell geometry, lighting, and operational edge cases that public corpora rarely include.</td><td>Multicamera video, proprioception, actions, force/torque or contact if available, intervention flags, success/failure, retries, operator/site/task metadata.</td><td>Usually proprietary. Treat it as a data engine, not a public benchmark. Avoid leakage into evaluation splits.</td></tr>
-      <tr><td>Humanoid and bimanual trajectories</td><td>GR00T N1-style humanoid data, RH20T, ALOHA/ACT-style bimanual data, G1/GR1 teleop where available.</td><td>Needed when the target system involves whole-body, dexterous, bimanual, or humanoid control. Manipulator-only data does not cover balance, coordination, or full-body constraints.</td><td>Embodiment description, joint states, action representation, camera rig, teleop interface, synchronization, contact states.</td><td>Mixing humanoid and arm-only corpora requires clear action-family routing and evaluation by embodiment.</td></tr>
-      <tr><td>Human egocentric and actionless video</td><td>Ego4D, EPIC-KITCHENS, Something-Something, HowTo100M-style instructional video, LAPA/LAWM/VideoVLA-style latent-action sources.</td><td>Gives large-scale temporal commonsense, object affordances, human intent, and procedure structure when robot actions are unavailable.</td><td>Time-aligned captions or narration, coarse action labels if available, object/contact events, scene/task tags.</td><td>Human motion is not robot action. Use for representation, planning, and latent bridge objectives, not direct low-level control labels.</td></tr>
-      <tr><td>Synthetic and simulation data</td><td>RoboCasa, RLBench, MetaWorld, CALVIN, ManiSkill, Isaac Sim/Omniverse rollouts, SDG-PhyxSim/RobotSim/DriveSim/SynHuman/Warehouse-style data.</td><td>Expands rare events, long-tail object layouts, task curricula, physical perturbations, and safety cases at lower collection cost.</td><td>Simulator version, assets, domain randomization parameters, controller/action interface, success labels, sim-to-real tags.</td><td>Synthetic data must be validated in closed loop. Visual realism alone is not enough for contact-rich control.</td></tr>
-      <tr><td>Navigation and trajectory data</td><td>Ego4D navigation clips, real robot navigation logs, simulation navigation rollouts, trajectory-caption data.</td><td>Useful for mobile manipulation, long-horizon planning, spatial memory, and waypoint grounding.</td><td>Pose, egomotion, map or route metadata, goal text, collision/intervention events, timestamps.</td><td>Navigation data can dominate visual features without improving manipulation unless mixture weights are controlled.</td></tr>
-      <tr><td>Auxiliary vision-language data</td><td>Image-text and video-text corpora, web-scale VLM data, captioned robotics images, embodied QA/instruction data.</td><td>Builds object recognition, language grounding, OCR, scene understanding, and instruction following before action learning.</td><td>Captions, provenance, filtering scores, safety/licensing metadata, task or domain tags.</td><td>VL data is necessary but insufficient. It does not teach actuator limits, temporal control, or contact dynamics.</td></tr>
-      <tr><td>World-model visual data</td><td>Robot videos, human videos, deployment recordings, Cosmos/DreamGen-style physical video, Cortex 2.0 visual deployment streams.</td><td>Supports predictive latent dynamics, future-state modeling, rollout evaluation, and planning-conditioned action generation.</td><td>Temporally ordered frames, camera metadata, action/state when available, outcomes/events when used for scoring.</td><td>Prediction helps control only if the latent preserves task-relevant change: contact, object state, constraints, and failure modes.</td></tr>
-      <tr><td>Reward, outcome, and failure telemetry</td><td>Cortex 2.0 PRO-style telemetry, intervention logs, collision/contact flags, deadlock/retry labels, success/failure rollouts, evaluation traces.</td><td>Enables progress, risk, completion, and efficiency scoring; filters bad data; and gives world-model rollouts a task-aware ranking signal.</td><td>Outcome labels, dense event labels, action/state history, sensor telemetry, timestamps, operator intervention type.</td><td>Definitions drift across sites. Audit label quality and shortcut correlations before using as a reward model.</td></tr>
-    </tbody>
-  </table>
-</section>
-<section class="wrap section" id="midtraining">
-  <h2>VLA Mid-Training Dataset Families</h2>
-  <p>Mid-training is the bridge between a general VLM or robot foundation model and a concrete policy. The key is not maximal scale; it is alignment between visual tokens, language instructions, action tokens, robot state, and the target controller.</p>
-  <table>
-    <thead><tr><th>Family</th><th>Representative sources</th><th>Use in mid-training</th><th>Quality bar</th></tr></thead>
-    <tbody>
-      <tr><td>Embodied VLM bridge data</td><td>Embodied QA, scene grounding, affordance questions, spatial reasoning, robotics captions, task decomposition data.</td><td>Preserves VLM reasoning while adapting it toward robot-relevant visual and language targets.</td><td>Questions must be grounded in the observable scene and action-relevant state, not generic caption trivia.</td></tr>
-      <tr><td>Related robot trajectories</td><td>BridgeData V2, DROID, OXE subsets close to target camera/action setup, OpenVLA/Octo/RT-X-style corpora.</td><td>Adapts pretrained representations to action prediction before target-domain finetune.</td><td>Keep embodiment IDs and action normalization explicit. Evaluate transfer per source, not just aggregate loss.</td></tr>
-      <tr><td>Target-embodiment seed demos</td><td>Small but clean teleop sets on the target robot, including easy tasks, hard tasks, perturbations, and recoveries.</td><td>Anchors the action head and robot-state interface to the system that will actually run.</td><td>Prefer coverage and metadata over only perfect demonstrations. Include failures and recoveries when safe.</td></tr>
-      <tr><td>Human video latent-action bridge</td><td>LAPA, LAWM, VideoVLA, action-tokenized egocentric video, object-centric procedure video.</td><td>Converts actionless human video into planning or latent-action supervision that can improve long-horizon structure.</td><td>Use as high-level temporal supervision; verify that latent actions correspond to robot-executable changes.</td></tr>
-      <tr><td>Synthetic curriculum data</td><td>RoboCasa tasks, RLBench/CALVIN/ManiSkill curricula, generated perturbations, synthetic rare-event rollouts.</td><td>Fills task gaps, balances object/task distributions, and tests long-tail situations before real collection.</td><td>Track source and generation recipe. Cap synthetic ratios unless closed-loop validation proves benefit.</td></tr>
-      <tr><td>Reward/progress/failure bridge</td><td>Success/failure labels, progress scores, intervention flags, near-miss events, Cortex 2.0 PRO-like telemetry.</td><td>Trains ranking, progress, risk, and episode-quality models used for filtering or world-model rollout selection.</td><td>Needs dense, consistent label definitions and held-out deployment traces.</td></tr>
-    </tbody>
-  </table>
-</section>
-<section class="wrap section" id="recipes">
-  <h2>Recipe Source Map</h2>
-  <p>The dataset choices above are synthesized from VLA survey papers and concrete recipe papers. The consistent pattern is that high-performing systems combine broad robot data with targeted domain data, then use architecture-specific bridges for actions, world models, or VLM reasoning.</p>
-  <table>
-    <thead><tr><th>Recipe or paper family</th><th>Dataset signal</th><th>Training lesson</th><th>Decision for this knowledge base</th></tr></thead>
-    <tbody>
-      <tr><td>RT-1 / RT-2 / RT-X</td><td>Large robot demonstrations plus web-scale VLM data and cross-embodiment mixtures.</td><td>General VL knowledge helps, but robot action data is the transfer substrate.</td><td>Use VL data as foundation; use OXE-style robot trajectories for action grounding.</td></tr>
-      <tr><td>Open X-Embodiment, Octo, OpenVLA</td><td>OXE, BridgeData, DROID, RoboNet, RT-1-like corpora.</td><td>Open-source VLA baselines are built on heterogeneous robot trajectory mixtures.</td><td>Start public baselines with OXE/OXE-derived subsets and preserve source IDs.</td></tr>
-      <tr><td>pi0 / pi0.5</td><td>Large robot and web-scale knowledge, action chunking/flow matching style training, target-domain transfer.</td><td>Representation and action interfaces matter as much as raw dataset size.</td><td>Track action horizon, chunking, state interface, and embodiment-specific finetune split.</td></tr>
-      <tr><td>GR00T N1</td><td>Humanoid and manipulation demonstrations, synthetic augmentation, simulation, multi-embodiment data.</td><td>Humanoid VLAs require explicit embodiment and control-schema metadata.</td><td>Separate humanoid/bimanual/full-body data from tabletop arm-only data.</td></tr>
-      <tr><td>RDT / SmolVLA / LingBot / X-VLA</td><td>Robot trajectory mixtures, compact policy recipes, language-conditioned manipulation.</td><td>Small or efficient VLAs still depend on good action normalization and curated robot mixes.</td><td>Do not shrink the metadata schema when shrinking model size.</td></tr>
-      <tr><td>Qwen-VLA and VLA Foundry-style recipes</td><td>VLM initialization plus embodied action tuning and data mixture ablations.</td><td>Mid-training can preserve language/vision competence while shifting toward control.</td><td>Create a mid-training mixture separate from final finetuning.</td></tr>
-      <tr><td>EmbodiedMidtrain and VLM-initialization studies</td><td>Embodied QA, robot data, task reasoning, ablation over VLM initialization.</td><td>General VLM initialization is not automatically optimal for control without embodied adaptation.</td><td>Measure both reasoning retention and closed-loop control improvement.</td></tr>
-      <tr><td>LAPA / LAWM / VideoVLA / FAST</td><td>Human videos, latent actions, action tokenization, efficient sequence modeling.</td><td>Actionless video can be useful when converted into robot-relevant latent structure.</td><td>Use human video for planning and temporal priors, not direct actuator labels.</td></tr>
-      <tr><td>DreamGen / Cosmos / world-model VLA work</td><td>Synthetic physical video, generated rollouts, world-model dynamics data.</td><td>World-model data can expand coverage, but must be checked against real closed-loop behavior.</td><td>Keep synthetic and real telemetry visibly separated in the manifest.</td></tr>
-      <tr><td>Cortex 2.0</td><td>Proprietary deployment recordings, targeted teleoperation, public robot data, and synthetic simulation episodes.</td><td>Deployment telemetry is a first-class training asset for world models, reward/progress scoring, and data selection.</td><td>Incorporate the pattern, not the proprietary dataset; cite it as a data-engine recipe.</td></tr>
-    </tbody>
-  </table>
-</section>
-<section class="wrap section" id="cortex">
-  <h2>Cortex 2.0 Addendum</h2>
-  <div class="note">
-    <p><strong>Paper added:</strong> <a href="https://arxiv.org/abs/2604.20246">Cortex 2.0: Grounding World Models in Real-World Industrial Deployment</a>. The project page is <a href="https://cortex2.sereact.ai/">cortex2.sereact.ai</a>; benchmark page is <a href="https://cortex2.sereact.ai/benchmark">cortex2.sereact.ai/benchmark</a>.</p>
-  </div>
-  <p>Cortex 2.0 is important for VLA dataset planning because it reframes deployment data as more than additional demonstrations. It uses operational recordings, target teleoperation, open robot data, and synthetic data to train a visual-latent world model and progress/risk/efficiency style scoring. The reusable lesson is the data engine: deployment telemetry, outcomes, and failures are training assets.</p>
-  <table>
-    <thead><tr><th>Cortex 2.0 data source</th><th>How to treat it in this recipe</th><th>Public reuse status</th></tr></thead>
-    <tbody>
-      <tr><td>Industrial deployment recordings from robot operation</td><td>Model as in-domain fleet telemetry for world-model training, scoring, and failure mining.</td><td>Proprietary. Do not list as a downloadable public dataset.</td></tr>
-      <tr><td>Targeted teleoperation episodes</td><td>Use for filling gaps exposed by deployment failures and benchmark gaps.</td><td>Paper-reported collection pattern; not a public general dataset in the source checked here.</td></tr>
-      <tr><td>Open-source robot data such as OXE/Bridge/DROID-style corpora</td><td>Use as the public cross-embodiment part of the mixture.</td><td>Reusable when license and source terms allow.</td></tr>
-      <tr><td>RoboCasa-style synthetic episodes</td><td>Use for curriculum, rare events, and controlled perturbations; validate in real closed loop.</td><td>Synthetic recipe pattern is reusable; exact generated set may not be public.</td></tr>
-      <tr><td>Progress/risk/efficiency/outcome telemetry</td><td>Use to train data filters, reward/progress heads, and rollout ranking for world models.</td><td>Requires internal label definitions and audit trails.</td></tr>
-    </tbody>
-  </table>
-</section>
-<section class="wrap section" id="quality">
-  <h2>Quality Gates</h2>
-  <p>Dataset scale is useful only when the data is identifiable, synchronized, and evaluable. The following checks should exist before a dataset enters a pretraining or mid-training mixture.</p>
-  <table>
-    <thead><tr><th>Gate</th><th>Requirement</th><th>Failure mode prevented</th></tr></thead>
-    <tbody>
-      <tr><td>Source identity</td><td>Every episode has dataset/source, robot, site, task, camera, and collection-protocol IDs.</td><td>Aggregate metrics hide one bad or dominant source.</td></tr>
-      <tr><td>Action normalization</td><td>Action units, control frequency, coordinate frame, gripper convention, and action horizon are explicit.</td><td>The model learns incompatible actuator semantics.</td></tr>
-      <tr><td>Temporal sync</td><td>Video, proprioception, actions, force/contact, language, and outcomes have aligned timestamps.</td><td>Policy learns lagged or impossible action labels.</td></tr>
-      <tr><td>Language audit</td><td>Instructions are task-specific and aligned to episode behavior; templated language is marked.</td><td>Instruction following looks good offline but fails under paraphrase.</td></tr>
-      <tr><td>Outcome labels</td><td>Success, failure, partial progress, intervention, reset, and retry semantics are documented.</td><td>Reward/progress heads learn site-specific or operator-specific shortcuts.</td></tr>
-      <tr><td>Holdout design</td><td>Hold out by task, object, embodiment, operator, site, and collection time where possible.</td><td>Pretraining leaks deployment evaluation.</td></tr>
-      <tr><td>Synthetic provenance</td><td>Simulator, assets, randomization, renderer, controller, and generation prompt/seed are recorded.</td><td>Synthetic gains cannot be debugged or reproduced.</td></tr>
-      <tr><td>Closed-loop eval</td><td>Offline loss must be paired with real or high-fidelity closed-loop success, robustness, and safety metrics.</td><td>Data mixture optimization overfits token prediction rather than robot performance.</td></tr>
-    </tbody>
-  </table>
-  <h3>Recommended manifest columns</h3>
-  <p><span class="tag">episode_id</span><span class="tag">source_dataset</span><span class="tag">robot_id</span><span class="tag">embodiment_family</span><span class="tag">task_id</span><span class="tag">language_instruction</span><span class="tag">camera_ids</span><span class="tag">action_space</span><span class="tag">control_hz</span><span class="tag">state_schema</span><span class="tag">success_label</span><span class="tag">failure_type</span><span class="tag">intervention_type</span><span class="tag">site_id</span><span class="tag">operator_id</span><span class="tag">collection_time</span><span class="tag">license</span><span class="tag">train_val_test_split</span></p>
-</section>
-<section class="wrap section" id="plan">
-  <h2>Practical Dataset Shopping List</h2>
-  <table>
-    <thead><tr><th>Priority</th><th>Collect or curate</th><th>Stage</th><th>Reason</th></tr></thead>
-    <tbody>
-      <tr><td>P0</td><td>Open X-Embodiment/OXE-derived robot mixture with BridgeData V2, DROID, RT-1/RT-X-style data, RoboNet, Language Table, and related manipulation sources.</td><td>Pretraining and mid-training baseline</td><td>Gives an immediate public robot-action substrate and lets the recipe compare against OpenVLA/Octo/RT-X conventions.</td></tr>
-      <tr><td>P0</td><td>Target robot teleoperation with success, partial success, failure, recovery, and perturbation episodes.</td><td>Mid-training and finetuning</td><td>Anchors the action head and robot-state interface to the deployed system.</td></tr>
-      <tr><td>P0</td><td>Deployment/fleet telemetry with intervention and outcome labels.</td><td>Pretraining, world-model training, reward/progress models</td><td>Turns operation into a data engine and captures edge cases not present in demonstrations.</td></tr>
-      <tr><td>P1</td><td>Human egocentric/instructional video such as Ego4D/EPIC-KITCHENS/HowTo-style clips, converted into representation or latent-action objectives.</td><td>Pretraining and mid-training bridge</td><td>Provides temporal procedure knowledge and affordances at much larger scale than robot data.</td></tr>
-      <tr><td>P1</td><td>Simulation and synthetic curricula from RoboCasa/RLBench/CALVIN/ManiSkill/Isaac Sim-style environments.</td><td>Pretraining, mid-training, stress testing</td><td>Expands rare events, long-tail layouts, and controllable perturbations.</td></tr>
-      <tr><td>P1</td><td>Embodied VLM instruction, QA, spatial reasoning, affordance, and task-decomposition data.</td><td>Mid-training</td><td>Preserves language and reasoning capabilities while making them action-relevant.</td></tr>
-      <tr><td>P2</td><td>World-model physical video data and generated rollouts, clearly separated from real robot logs.</td><td>World-model pretraining and rollout scoring</td><td>Useful for predictive dynamics and planning if validated against real robot behavior.</td></tr>
-    </tbody>
-  </table>
-</section>
-<section class="wrap section" id="references">
-  <h2>References</h2>
-  <ul>
-    <li><a href="https://arxiv.org/abs/2510.07077">VLA survey paper</a> used for high-level taxonomy of VLA architectures, datasets, and training stages.</li>
-    <li><a href="https://robotics-transformer-x.github.io/">Open X-Embodiment / RT-X project</a> for cross-embodiment robot data and transfer evidence.</li>
-    <li><a href="https://arxiv.org/html/2406.09246v1">OpenVLA</a> for open VLA training recipe and OXE-style data mixture evidence.</li>
-    <li><a href="https://huggingface.co/papers/2605.30280">Qwen-VLA</a> for VLM-to-VLA adaptation and mid-training style recipe evidence.</li>
-    <li><a href="https://arxiv.org/abs/2604.20246">Cortex 2.0</a>, <a href="https://cortex2.sereact.ai/">project page</a>, and <a href="https://cortex2.sereact.ai/benchmark">benchmark page</a> for deployment-world-model and reward/progress data-engine evidence.</li>
-    <li>Recipe families incorporated in the local research base: RT-2, Octo, OpenVLA, pi0/pi0.5, GR00T N1, VLA Foundry, Qwen-VLA, Wall-OSS, RDT, SmolVLA, LingBot, X-VLA, EmbodiedMidtrain, LAPA, LAWM, FAST, DreamGen, Cosmos, and Cortex 2.0.</li>
-  </ul>
-</section>
+  <p>
+    The documentation covers VLA pretraining and mid-training stages, dataset
+    families, recipe evidence, Cortex 2.0 deployment-data guidance, and quality
+    gates for real, synthetic, and fleet telemetry.
+  </p>
+  <p>
+    If GitHub Pages is configured for Actions, pushes to <code>main</code>
+    publish the generated Book Theme site automatically.
+  </p>
 </main>
-<footer>
-  <div class="wrap">Public research page for nv-sachdevkartik/pretraining-recipes. Built from the VLA training knowledge base in ~/pretrain.</div>
-</footer>
 </body>
 </html>

@@ -1,0 +1,16 @@
+:root {
+  --pst-color-primary: #0f766e;
+  --pst-color-secondary: #335c67;
+}
+
+.bd-main .bd-content .bd-article-container {
+  max-width: 920px;
+}
+
+.bd-page-width {
+  max-width: 1280px;
+}
+
+table {
+  font-size: 0.92rem;
+}

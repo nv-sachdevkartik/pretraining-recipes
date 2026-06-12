@@ -1,34 +1,39 @@
 # Pretraining Recipes
 
-Training-focused VLA pretraining and mid-training notes.
+Research notes and dataset guidance for VLA pretraining and mid-training.
+
+This repository is intentionally documentation-first. The maintained source
+lives in `docs/` and is built with Sphinx and the Sphinx Book Theme.
 
 ## Browse
 
-The static page is committed at:
-
-```text
-docs/index.html
-```
-
-To host it with GitHub Pages, enable Pages for this repository using:
-
-```text
-Source: main
-Folder: /docs
-```
-
-Expected URL after Pages is enabled:
+Public documentation:
 
 ```text
 https://nv-sachdevkartik.github.io/pretraining-recipes/
 ```
 
+## Build
+
+```bash
+cd docs
+python -m pip install -r requirements.txt
+make current-docs
+```
+
+Open the generated site:
+
+```bash
+xdg-open _build/current/index.html
+```
+
 ## Scope
 
-This repository focuses on the main VLA training content:
-
 - VLA pretraining and mid-training definitions
+- dataset requirements and mixture design
 - recipe and ablation guidance
-- dataset, action representation, architecture, infrastructure, and evaluation notes
-- Isaac-GR00T training-readiness case-study notes
-- primary paper/project references
+- architecture, action representation, infrastructure, and evaluation notes
+- Cortex 2.0 deployment-data addendum
+
+Post-training, preference learning, RL, and deployment adaptation are out of
+scope except when they clarify the boundary with pretraining or mid-training.
