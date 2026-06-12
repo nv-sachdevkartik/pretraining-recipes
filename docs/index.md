@@ -3,21 +3,15 @@
 This documentation is a research handbook for building and evaluating
 vision-language-action (VLA) pretraining and mid-training data recipes.
 
-```{toctree}
-:maxdepth: 2
-:caption: Research Guide
+## Research Guide
 
-source/overview
-source/training_stages
-source/datasets
-source/recipes
-source/quality
-source/references
-```
+- [Overview](source/overview.md)
+- [Training Stages](source/training_stages.md)
+- [Dataset Map](source/datasets.md)
+- [Recipe Source Map](source/recipes.md)
+- [Quality Gates](source/quality.md)
+- [References](source/references.md)
 
-```{toctree}
-:maxdepth: 1
-:caption: Project
+## Project
 
-source/build
-```
+- [Build and Maintenance](source/build.md)

@@ -7,6 +7,7 @@ author = "Kartik Sachdev"
 copyright = "2026, Kartik Sachdev"
 release = "0.1"
 version = "0.1"
+root_doc = "index"
 
 extensions = [
     "myst_parser",
@@ -24,6 +25,7 @@ exclude_patterns = [
     "Thumbs.db",
     ".DS_Store",
     "README.md",
+    "index.md",
     "index.html",
 ]
 
