@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ page.title | default: site.title }}</title>
+    <link rel="stylesheet" href="{{ '/assets/css/fallback.css' | relative_url }}">
+  </head>
+  <body>
+    <div class="site-shell">
+      <aside class="site-sidebar" aria-label="Documentation navigation">
+        <a class="site-brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+        <div class="site-links" aria-label="Project links">
+          <a href="https://github.com/nv-sachdevkartik/pretraining-recipes">GitHub</a>
+          <a href="https://nv-sachdevkartik.github.io/pretraining-recipes/">Docs</a>
+        </div>
+        <nav>
+          <p>Research Guide</p>
+          <a href="{{ '/source/overview.html' | relative_url }}">Overview</a>
+          <a href="{{ '/source/training_stages.html' | relative_url }}">Training Stages</a>
+          <a href="{{ '/source/datasets.html' | relative_url }}">Dataset Map</a>
+          <a href="{{ '/source/recipes.html' | relative_url }}">Recipe Source Map</a>
+          <a href="{{ '/source/quality.html' | relative_url }}">Quality Gates</a>
+          <a href="{{ '/source/references.html' | relative_url }}">References</a>
+          <p>Project</p>
+          <a href="{{ '/source/build.html' | relative_url }}">Build and Maintenance</a>
+        </nav>
+      </aside>
+
+      <main class="site-main" id="main-content">
+        {{ content }}
+      </main>
+    </div>
+  </body>
+</html>

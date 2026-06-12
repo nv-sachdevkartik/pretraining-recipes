@@ -31,7 +31,8 @@ start _build\current\index.html
 ```text
 docs/
   conf.py              Sphinx configuration
-  index.md             top-level table of contents
+  index.rst            Sphinx landing page and table of contents
+  index.md             GitHub Pages branch-mode fallback only
   source/              maintained documentation chapters
   _static/css/         small project-specific style overrides
   _build/current/      generated HTML output

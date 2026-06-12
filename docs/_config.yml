@@ -1,0 +1,8 @@
+title: VLA Training Recipes
+description: VLA pretraining and mid-training data recipes.
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
