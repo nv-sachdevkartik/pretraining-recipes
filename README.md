@@ -2,8 +2,8 @@
 
 Research notes and dataset guidance for VLA pretraining and mid-training.
 
-This repository is intentionally documentation-first. The maintained source
-lives in `docs/` and is built with Sphinx and the Sphinx Book Theme.
+The maintained source lives in `docs/` and is built with Sphinx and the
+Sphinx Book Theme.
 
 ## Browse
 
