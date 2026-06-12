@@ -12,8 +12,8 @@ design, and evaluation constraints.
 - Cortex 2.0 deployment-data guidance
 - quality gates for real, synthetic, and deployment telemetry
 
-## Out of Scope
+## Future Work
 
-- downstream policy finetuning except as contrast
+- downstream policy finetuning recipes
 - RL post-training recipes
 - deployment operations beyond data-loop implications
