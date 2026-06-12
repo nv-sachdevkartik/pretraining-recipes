@@ -28,6 +28,17 @@ Convert a completed workflow into durable memory that will improve future runs.
 - Summary of what was preserved and what was intentionally omitted.
 - Follow-up items only when they affect future execution.
 
+# Inputs
+
+- Final outcome, accepted review findings, source links, commits, screenshots,
+  and observed failure modes.
+
+# Handoff
+
+- Hand off compact memory records that match `memory/memory_schema.yaml`.
+- Do not hand off unresolved claims as durable memory; keep them in open
+  questions or backlog notes.
+
 # Self-Check
 
 - Would this memory help a future agent act better?

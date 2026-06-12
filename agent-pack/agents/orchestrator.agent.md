@@ -30,6 +30,17 @@ clear owners, inputs, outputs, and verification.
 - Task packets for specialist agents when fan-out is useful.
 - Final synthesis that states what changed, what was verified, and what remains.
 
+# Inputs
+
+- User goal, repository state, current constraints, and any required sources.
+
+# Handoff
+
+- Emit task packets with ownership scope, evidence bundle expectations, gate
+  status, next agent, and next action.
+- If a reviewer blocks publish, route work back to the responsible agent and
+  require checks to rerun before review resumes.
+
 # Self-Check
 
 - Did every public claim have an evidence path?

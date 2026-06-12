@@ -12,16 +12,20 @@ Actions.
 
 1. Inspect workflow permissions, build job, artifact upload, and deploy job.
 2. Confirm the workflow uses official Pages artifact deployment.
-3. Avoid privileged REST calls that try to change repository Pages settings at
+3. Confirm the deploy job depends on the build job, declares the
+   `github-pages` environment, and exposes the deployed page URL.
+4. Avoid privileged REST calls that try to change repository Pages settings at
    runtime.
-4. Check Actions status and public URL after deployment.
-5. Compare latest commit, built artifact, and public page when the live site
+5. Check Actions status and public URL after deployment.
+6. Compare latest commit, built artifact, and public page when the live site
    appears stale.
-6. Hand off to visual QA for rendered page inspection.
+7. Hand off to visual QA for rendered page inspection.
 
 ## Checks
 
 - `pages: write` and `id-token: write` are explicit where required.
+- `needs: build`, `environment: github-pages`, and deployment URL wiring are
+  present for split build/deploy workflows.
 - The build artifact contains the expected HTML, CSS, images, and search index.
 - The public URL is checked after Actions completes.
 - Any required repository setting is documented as an owner action.

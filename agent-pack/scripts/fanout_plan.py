@@ -7,14 +7,26 @@ import argparse
 from pathlib import Path
 
 
-DEFAULT_AGENTS = [
-    ("vla-researcher", "Collect source-backed evidence and caveats."),
-    ("sphinx-docs-builder", "Implement clean Sphinx source and run local build checks."),
-    ("github-pages-deployer", "Verify GitHub Actions and public Pages deployment."),
-    ("visual-qa", "Inspect rendered pages and assets."),
-    ("expert-reviewer", "Review claims, code/docs quality, and public tone."),
-    ("memory-curator", "Capture reusable lessons and remove noise."),
-]
+def parse_agent_purposes(matrix_path: Path) -> list[tuple[str, str]]:
+    """Parse the small agent_matrix.yaml shape used by this pack."""
+    agents: list[tuple[str, str]] = []
+    in_agents = False
+    current: str | None = None
+    for line in matrix_path.read_text(encoding="utf-8").splitlines():
+        if line == "agents:":
+            in_agents = True
+            continue
+        if line == "workflows:":
+            break
+        if not in_agents:
+            continue
+        if line.startswith("  ") and line.endswith(":") and not line.startswith("    "):
+            current = line.strip()[:-1]
+            continue
+        if current and line.startswith("    purpose:"):
+            purpose = line.split(":", 1)[1].strip()
+            agents.append((current, purpose))
+    return agents
 
 
 def parse_args() -> argparse.Namespace:
@@ -40,7 +52,9 @@ def main() -> int:
     print(f"- Goal: {args.goal}")
     print("- Pattern: staged fan-out with final expert review and memory curation")
     print(f"- Agent matrix: {root / 'agent_matrix.yaml'}\n")
-    for name, output in DEFAULT_AGENTS:
+    for name, output in parse_agent_purposes(root / "agent_matrix.yaml"):
+        if name == "orchestrator":
+            continue
         print(f"## {name}\n")
         print(f"- Task: {output}")
         print("- Inputs: user request, repository state, relevant sources")

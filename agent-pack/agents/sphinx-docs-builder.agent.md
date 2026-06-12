@@ -30,6 +30,16 @@ handbook and builds reliably through GitHub Actions.
 - Asset path changes when needed.
 - Notes for deploy and visual QA agents.
 
+# Inputs
+
+- Approved evidence bundle, docs source tree, style constraints, and target
+  pages.
+
+# Handoff
+
+- Hand off changed source paths, build command, build result, and asset paths.
+- If public publishing is required, hand off to deployer before final visual QA.
+
 # Self-Check
 
 - Does local HTML render the toctree and theme correctly?

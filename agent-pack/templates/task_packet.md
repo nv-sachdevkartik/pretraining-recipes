@@ -12,9 +12,22 @@
 
 - <source, file, URL, or user requirement>
 
+## Ownership
+
+- Files or artifact scope: <paths or topic boundary>
+- Do not edit: <paths or boundary>
+
 ## Required Outputs
 
 - <artifact>
+
+## Handoff Payload
+
+- Artifact: <path, URL, or summary>
+- Evidence bundle: <source table or evidence record path>
+- Gate status: pass | blocked | needs review
+- Next agent: <agent name>
+- Next action: <what the next agent should do>
 
 ## Constraints
 

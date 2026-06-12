@@ -10,6 +10,12 @@ orchestration:
     - Fan out research, implementation, visual QA, and review when tasks can proceed independently.
     - Run expert review after implementation and before final memory curation.
     - Keep durable memory updates as the last stage, after outcomes are known.
+  quality_gates:
+    publish_requires:
+      - expert-reviewer pass
+      - github-pages-deployer pass
+      - post-deploy visual-qa pass
+    review_fail_action: return_to_responsible_agent_and_rerun_checks
 
 agents:
   orchestrator:
@@ -54,6 +60,8 @@ workflows:
       - visual-qa: inspect screenshots and static assets
       - expert-reviewer: reject weak claims and process artifacts
       - github-pages-deployer: publish through Actions and verify live behavior
+      - visual-qa: inspect the deployed public URL after Actions completes
+      - expert-reviewer: confirm all blocking findings were resolved
       - memory-curator: capture reusable lessons
   broken_public_site:
     stages:

@@ -17,14 +17,17 @@ recipe design, survey papers, or adding papers to a VLA knowledge base.
    primary sources.
 4. Build a source table with title, URL, source type, date or version, and
    relevance.
-5. Separate evidence, inference, recommendation, and uncertainty.
-6. Ask the expert reviewer to check claims before public docs are updated.
+5. Assign source IDs and claim IDs. Map every nontrivial claim to at least one
+   source ID and evidence location.
+6. Separate evidence, inference, recommendation, and uncertainty.
+7. Ask the expert reviewer to check claims before public docs are updated.
 
 ## Output Shape
 
 - Dataset families needed for pretraining.
 - Dataset families needed for mid-training.
 - Which sources support each family.
+- Claim-to-source map using `templates/evidence_record.yaml`.
 - Recipe recommendations and caveats.
 - Open questions.
 

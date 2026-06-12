@@ -29,6 +29,18 @@ Keep GitHub Pages deployment reliable without shortcutting repository standards.
 - Public URL and verification notes.
 - Escalation note when repository settings require owner action.
 
+# Inputs
+
+- Repository workflow files, build artifact details, target branch or commit,
+  and public Pages URL.
+
+# Handoff
+
+- Hand off Actions run status, deployed URL, page URL output, and any cache or
+  settings caveat to visual QA.
+- If deployment fails due repository settings, hand off owner-action notes to
+  the orchestrator.
+
 # Self-Check
 
 - Did the workflow avoid privileged API settings changes?

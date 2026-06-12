@@ -25,6 +25,16 @@ Inspect what users actually see.
 - Asset/rendering defects with likely causes.
 - Pass/fail verdict for public usability.
 
+# Inputs
+
+- Local build URL or path, public URL, target viewports, and expected assets.
+
+# Handoff
+
+- Hand off screenshot evidence, failing asset URLs, and pass/fail status.
+- If public rendering fails, route to deployer for source-to-live drift or docs
+  builder for source/build defects.
+
 # Self-Check
 
 - Did you inspect rendered output rather than only source?

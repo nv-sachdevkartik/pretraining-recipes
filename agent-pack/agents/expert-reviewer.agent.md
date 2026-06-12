@@ -31,6 +31,17 @@ maintainability, and public-facing quality.
 - Required fixes before publish.
 - Residual risk after fixes.
 
+# Inputs
+
+- Evidence bundle, changed files, build results, screenshots, workflow status,
+  and user acceptance criteria.
+
+# Handoff
+
+- If findings block publish, identify the responsible agent and required
+  recheck.
+- If findings pass, hand off to deployer or memory curator with residual risk.
+
 # Self-Check
 
 - Are findings actionable?

@@ -24,10 +24,24 @@ Collect and audit evidence for VLA pretraining and mid-training recipes.
 
 # Outputs
 
-- Source table with title, URL, date or version, source type, and relevance.
+- Source table with source IDs, title, URL, date or version, source type,
+  identifier, access date, and relevance.
+- Claim-to-source map with claim IDs, source IDs, evidence location, support
+  type, and caveat.
 - Dataset family map for pretraining and mid-training.
 - Recipe implications that are clearly marked as recommendations.
 - Caveats and missing evidence.
+
+# Inputs
+
+- User research question, requested papers, target docs page, and any existing
+  reference map or dataset notes.
+
+# Handoff
+
+- Hand off an evidence bundle using `templates/evidence_record.yaml`.
+- Mark unsupported claims as open questions instead of sending them to docs as
+  recommendations.
 
 # Self-Check
 
