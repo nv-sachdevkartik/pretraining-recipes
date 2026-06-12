@@ -13,6 +13,7 @@ extensions = [
     "myst_parser",
     "sphinx.ext.githubpages",
     "sphinx_copybutton",
+    "sphinx_design",
 ]
 
 source_suffix = {
@@ -38,7 +39,7 @@ myst_enable_extensions = [
 ]
 
 html_theme = "sphinx_book_theme"
-html_title = "Pretraining Recipes"
+html_title = "VLA Training Recipes Documentation"
 html_show_sphinx = False
 html_last_updated_fmt = ""
 html_static_path = ["_static"]
@@ -50,10 +51,34 @@ html_theme_options = {
     "use_repository_button": True,
     "use_issues_button": True,
     "use_edit_page_button": True,
-    "show_toc_level": 2,
+    "show_toc_level": 1,
     "collapse_navigation": True,
     "use_sidenotes": True,
     "logo": {
-        "text": "Pretraining Recipes",
+        "text": "VLA Training Recipes",
     },
+    "icon_links": [
+        {
+            "name": "GitHub",
+            "url": "https://github.com/nv-sachdevkartik/pretraining-recipes",
+            "icon": "fa-brands fa-square-github",
+            "type": "fontawesome",
+        },
+        {
+            "name": "Public Docs",
+            "url": "https://nv-sachdevkartik.github.io/pretraining-recipes/",
+            "icon": "fa-solid fa-book-open",
+            "type": "fontawesome",
+        },
+    ],
+    "icon_links_label": "Project links",
+}
+
+html_sidebars = {
+    "**": [
+        "navbar-logo.html",
+        "icon-links.html",
+        "search-field.html",
+        "sbt-sidebar-nav.html",
+    ]
 }

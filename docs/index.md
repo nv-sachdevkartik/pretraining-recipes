@@ -1,4 +1,6 @@
-# VLA Pretraining and Mid-Training Recipes
+# Welcome to VLA Training Recipes
+
+![VLA data recipe pipeline](_static/img/vla-recipe-map.png)
 
 This documentation is a research handbook for building and evaluating
 vision-language-action (VLA) pretraining and mid-training data recipes.

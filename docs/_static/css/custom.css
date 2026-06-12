@@ -1,16 +1,185 @@
-:root {
-  --pst-color-primary: #0f766e;
-  --pst-color-secondary: #335c67;
+html[data-theme="light"] {
+  --pst-color-primary: #76b900;
+  --pst-color-secondary: #5b8e03;
+  --pst-color-secondary-highlight: #5b8e03;
+  --pst-color-inline-code-links: #76b900;
+  --pst-color-info: var(--pst-color-primary);
+  --pst-color-info-highlight: var(--pst-color-primary);
+  --pst-color-info-bg: #edf6dd;
+  --pst-color-text-base: #282828;
+  --pst-color-text-muted: #5f6368;
+  --pst-color-shadow: #d8d8d8;
+  --pst-color-border: #d0d4d8;
+  --pst-color-inline-code: #5b8e03;
+  --pst-color-background: #ffffff;
+  --pst-color-on-background: #ffffff;
+  --pst-color-surface: #f6f8fa;
+  --pst-color-on-surface: #eef1f4;
+  --pst-color-link: var(--pst-color-primary);
+  --pst-color-link-hover: #5b8e03;
+  --pst-color-accent: var(--pst-color-primary);
+}
+
+html[data-theme="dark"] {
+  --pst-color-primary: #76b900;
+  --pst-color-secondary: #c2f26f;
+  --pst-color-secondary-highlight: #c2f26f;
+  --pst-color-inline-code-links: #b6e664;
+  --pst-color-info: var(--pst-color-primary);
+  --pst-color-info-highlight: var(--pst-color-primary);
+  --pst-color-info-bg: #2f4609;
+  --pst-color-text-base: #d8d8d8;
+  --pst-color-text-muted: #a9adb3;
+  --pst-color-shadow: #101418;
+  --pst-color-border: #6b7280;
+  --pst-color-inline-code: #b6e664;
+  --pst-color-background: #121212;
+  --pst-color-on-background: #1d1f22;
+  --pst-color-surface: #202326;
+  --pst-color-on-surface: #30343a;
+  --pst-color-link: var(--pst-color-primary);
+  --pst-color-link-hover: #aee354;
+  --pst-color-accent: var(--pst-color-primary);
 }
 
 .bd-main .bd-content .bd-article-container {
-  max-width: 920px;
+  max-width: 980px;
 }
 
 .bd-page-width {
-  max-width: 1280px;
+  max-width: 1320px;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+.navbar-brand {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.bd-sidebar-primary {
+  border-right: 1px solid var(--pst-color-border);
+}
+
+.bd-sidebar-primary .sidebar-primary-items__end {
+  margin-top: 1rem;
+}
+
+.bd-search {
+  border-radius: 0 !important;
+}
+
+.form-control {
+  border-radius: 0 !important;
+}
+
+.bd-article-container h1 {
+  letter-spacing: 0;
+}
+
+.recipe-lead {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  max-width: 860px;
+}
+
+.recipe-hero-image {
+  border: 1px solid var(--pst-color-border);
+  display: block;
+  margin: 0.25rem 0 1.5rem;
+  width: 100%;
+}
+
+.recipe-cover {
+  background:
+    linear-gradient(135deg, rgba(118, 185, 0, 0.16), rgba(55, 65, 81, 0.08)),
+    linear-gradient(90deg, rgba(118, 185, 0, 0.22), rgba(255, 255, 255, 0));
+  border: 1px solid var(--pst-color-border);
+  border-radius: 2px;
+  margin: 1.25rem 0 2rem;
+  padding: 1.2rem 1.35rem;
+}
+
+.recipe-cover__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.recipe-cover__item {
+  background: var(--pst-color-background);
+  border: 1px solid var(--pst-color-border);
+  border-left: 4px solid var(--pst-color-primary);
+  min-height: 5.25rem;
+  padding: 0.75rem;
+}
+
+.recipe-cover__label {
+  color: var(--pst-color-text-muted);
+  display: block;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.recipe-cover__value {
+  color: var(--pst-color-text-base);
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-top: 0.35rem;
+}
+
+.sd-card {
+  border-radius: 2px !important;
+  box-shadow: none !important;
+}
+
+.sd-card:hover {
+  border-color: var(--pst-color-primary);
+}
+
+.sd-card-title {
+  color: var(--pst-color-text-base);
+  font-weight: 700;
+}
+
+.sd-card-text {
+  color: var(--pst-color-text-muted);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.toctree-wrapper > p.caption,
+.caption-text {
+  color: var(--pst-color-text-base);
+  font-weight: 700;
+}
+
+.toctree-wrapper ul {
+  line-height: 1.55;
 }
 
 table {
   font-size: 0.92rem;
+}
+
+@media (max-width: 900px) {
+  .recipe-cover__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .recipe-cover {
+    padding: 0.9rem;
+  }
+
+  .recipe-cover__grid {
+    grid-template-columns: 1fr;
+  }
 }
