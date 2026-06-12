@@ -34,7 +34,7 @@ jobs:
           test -f docs/_build/current/.nojekyll
           test -f docs/_build/current/_static/styles/sphinx-book-theme.css
           test ! -f docs/_build/current/source/cortex.html
-      - uses: actions/upload-pages-artifact@v4
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: docs/_build/current
           include-hidden-files: true
