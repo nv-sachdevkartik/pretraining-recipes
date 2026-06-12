@@ -33,7 +33,9 @@ xdg-open _build/current/index.html
 - dataset requirements and mixture design
 - recipe and ablation guidance
 - architecture, action representation, infrastructure, and evaluation notes
-- Cortex 2.0 deployment-data addendum
 
-Post-training, preference learning, RL, and deployment adaptation are out of
-scope except when they clarify the boundary with pretraining or mid-training.
+## Future Work
+
+- post-training and preference-learning recipes
+- RL post-training recipes
+- deployment adaptation beyond data-loop implications
