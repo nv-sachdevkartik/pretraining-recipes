@@ -22,15 +22,19 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--goal", required=True, help="Goal to fan out.")
     parser.add_argument(
         "--root",
-        default=".",
-        help="Agent pack root. Used only for path hints in generated packets.",
+        default=None,
+        help="Agent pack root. Defaults to the parent directory of this script.",
     )
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
-    root = Path(args.root).expanduser().resolve()
+    root = (
+        Path(args.root).expanduser().resolve()
+        if args.root
+        else Path(__file__).resolve().parents[1]
+    )
     print(f"# Fan-Out Plan: {args.goal}\n")
     print("## Orchestrator Packet\n")
     print(f"- Goal: {args.goal}")
