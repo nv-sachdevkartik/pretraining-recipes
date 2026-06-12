@@ -4,7 +4,7 @@ title: Welcome to VLA Training Recipes
 
 # Welcome to VLA Training Recipes
 
-![VLA data recipe pipeline](assets/img/vla-recipe-map.png)
+![VLA data recipe pipeline](assets/img/vla-recipe-map.svg)
 
 This documentation is a research handbook for building and evaluating
 vision-language-action (VLA) pretraining and mid-training data recipes. It is

@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" role="img" aria-labelledby="title desc">
+  <title id="title">VLA data recipe map</title>
+  <desc id="desc">Four-stage map from data sources to curation, training mixture construction, and quality gates.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f6f8fa; }
+      .band { fill: #e8f3d8; }
+      .green { fill: #76b900; }
+      .green-dark { fill: #4f8500; }
+      .panel { fill: #ffffff; stroke: #cbd3dc; }
+      .shadow { fill: #e5e9ee; }
+      .title { fill: #27313f; font: 700 27px system-ui, -apple-system, "Segoe UI", sans-serif; }
+      .subtitle { fill: #586473; font: 13px system-ui, -apple-system, "Segoe UI", sans-serif; }
+      .stage { fill: #4f8500; font: 700 12px system-ui, -apple-system, "Segoe UI", sans-serif; letter-spacing: .04em; }
+      .head { fill: #27313f; font: 700 20px system-ui, -apple-system, "Segoe UI", sans-serif; }
+      .body { fill: #334155; font: 13px system-ui, -apple-system, "Segoe UI", sans-serif; }
+      .chip { fill: #edf6dd; stroke: #d6e8bc; }
+      .chip-text { fill: #4f8500; font: 700 11px system-ui, -apple-system, "Segoe UI", sans-serif; letter-spacing: .03em; }
+      .rail-text { fill: #586473; font: 11px system-ui, -apple-system, "Segoe UI", sans-serif; }
+      .arrow { fill: none; stroke: #76b900; stroke-width: 4; stroke-linecap: round; }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1200" height="360"/>
+  <rect class="green" x="0" y="0" width="1200" height="13"/>
+  <rect class="band" x="0" y="13" width="1200" height="39"/>
+  <rect x=".5" y=".5" width="1199" height="359" fill="none" stroke="#cbd3dc"/>
+
+  <text class="title" x="34" y="41">VLA data recipe map</text>
+  <text class="subtitle" x="330" y="39">from dataset families to training mixtures and quality gates</text>
+
+  <g transform="translate(42 78)">
+    <rect class="shadow" x="3" y="4" width="245" height="218" rx="5"/>
+    <rect class="panel" x="0" y="0" width="245" height="218" rx="5"/>
+    <rect class="green" x="0" y="0" width="245" height="8"/>
+    <text class="stage" x="18" y="34">STAGE 01</text>
+    <text class="head" x="18" y="69">Data Sources</text>
+    <rect class="chip" x="164" y="26" width="64" height="21" rx="10"/>
+    <text class="chip-text" x="172" y="41">COLLECT</text>
+    <circle class="green" cx="22" cy="116" r="4"/><text class="body" x="36" y="121">public robot corpora</text>
+    <circle class="green" cx="22" cy="143" r="4"/><text class="body" x="36" y="148">human video and web data</text>
+    <circle class="green" cx="22" cy="170" r="4"/><text class="body" x="36" y="175">simulation and synthetic rollouts</text>
+    <circle class="green" cx="22" cy="197" r="4"/><text class="body" x="36" y="202">deployment telemetry</text>
+  </g>
+
+  <g transform="translate(326 78)">
+    <rect class="shadow" x="3" y="4" width="245" height="218" rx="5"/>
+    <rect class="panel" x="0" y="0" width="245" height="218" rx="5"/>
+    <rect class="green" x="0" y="0" width="245" height="8"/>
+    <text class="stage" x="18" y="34">STAGE 02</text>
+    <text class="head" x="18" y="69">Curation</text>
+    <rect class="chip" x="145" y="26" width="83" height="21" rx="10"/>
+    <text class="chip-text" x="153" y="41">NORMALIZE</text>
+    <circle class="green" cx="22" cy="116" r="4"/><text class="body" x="36" y="121">manifest schema</text>
+    <circle class="green" cx="22" cy="143" r="4"/><text class="body" x="36" y="148">deduplication and filters</text>
+    <circle class="green" cx="22" cy="170" r="4"/><text class="body" x="36" y="175">task and embodiment tags</text>
+    <circle class="green" cx="22" cy="197" r="4"/><text class="body" x="36" y="202">train/eval holdouts</text>
+  </g>
+
+  <g transform="translate(610 78)">
+    <rect class="shadow" x="3" y="4" width="245" height="218" rx="5"/>
+    <rect class="panel" x="0" y="0" width="245" height="218" rx="5"/>
+    <rect class="green" x="0" y="0" width="245" height="8"/>
+    <text class="stage" x="18" y="34">STAGE 03</text>
+    <text class="head" x="18" y="69">Training Mix</text>
+    <rect class="chip" x="177" y="26" width="51" height="21" rx="10"/>
+    <text class="chip-text" x="185" y="41">BLEND</text>
+    <circle class="green" cx="22" cy="116" r="4"/><text class="body" x="36" y="121">vision-language pretraining</text>
+    <circle class="green" cx="22" cy="143" r="4"/><text class="body" x="36" y="148">embodied bridge training</text>
+    <circle class="green" cx="22" cy="170" r="4"/><text class="body" x="36" y="175">action-token grounding</text>
+    <circle class="green" cx="22" cy="197" r="4"/><text class="body" x="36" y="202">ablation-ready recipes</text>
+  </g>
+
+  <g transform="translate(894 78)">
+    <rect class="shadow" x="3" y="4" width="245" height="218" rx="5"/>
+    <rect class="panel" x="0" y="0" width="245" height="218" rx="5"/>
+    <rect class="green" x="0" y="0" width="245" height="8"/>
+    <text class="stage" x="18" y="34">STAGE 04</text>
+    <text class="head" x="18" y="69">Quality Gates</text>
+    <rect class="chip" x="174" y="26" width="54" height="21" rx="10"/>
+    <text class="chip-text" x="182" y="41">VERIFY</text>
+    <circle class="green" cx="22" cy="116" r="4"/><text class="body" x="36" y="121">coverage and balance checks</text>
+    <circle class="green" cx="22" cy="143" r="4"/><text class="body" x="36" y="148">leakage and license review</text>
+    <circle class="green" cx="22" cy="170" r="4"/><text class="body" x="36" y="175">robot/task/site holdouts</text>
+    <circle class="green" cx="22" cy="197" r="4"/><text class="body" x="36" y="202">failure and reward signals</text>
+  </g>
+
+  <path class="arrow" d="M301 187h-4"/><path class="green" d="M312 187l-15-10v20z"/>
+  <path class="arrow" d="M585 187h-4"/><path class="green" d="M596 187l-15-10v20z"/>
+  <path class="arrow" d="M869 187h-4"/><path class="green" d="M880 187l-15-10v20z"/>
+
+  <line class="arrow" x1="80" y1="325" x2="1120" y2="325"/>
+  <g>
+    <circle cx="164.5" cy="325" r="8" fill="#f6f8fa" stroke="#76b900" stroke-width="4"/><text class="rail-text" x="148" y="352">source</text>
+    <circle cx="448.5" cy="325" r="8" fill="#f6f8fa" stroke="#76b900" stroke-width="4"/><text class="rail-text" x="433" y="352">curate</text>
+    <circle cx="732.5" cy="325" r="8" fill="#f6f8fa" stroke="#76b900" stroke-width="4"/><text class="rail-text" x="724" y="352">mix</text>
+    <circle cx="1016.5" cy="325" r="8" fill="#f6f8fa" stroke="#76b900" stroke-width="4"/><text class="rail-text" x="1005" y="352">gate</text>
+  </g>
+</svg>

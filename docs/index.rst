@@ -1,7 +1,7 @@
 Welcome to VLA Training Recipes!
 ================================
 
-.. image:: _static/img/vla-recipe-map.png
+.. image:: _static/img/vla-recipe-map.svg
    :alt: VLA data recipe pipeline from dataset sources to robot actions and quality gates.
    :width: 100%
    :class: recipe-hero-image
