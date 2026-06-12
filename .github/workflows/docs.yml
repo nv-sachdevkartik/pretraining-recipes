@@ -12,7 +12,7 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -22,10 +22,6 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
-      - name: Ensure Pages deploys from GitHub Actions
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: gh api --method PUT "/repos/${{ github.repository }}/pages" -f build_type=workflow
       - uses: actions/configure-pages@v6
       - name: Install docs dependencies
         run: |
