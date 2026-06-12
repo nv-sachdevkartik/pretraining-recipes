@@ -1,0 +1,47 @@
+version: 1
+record_types:
+  project_convention:
+    description: A stable project rule or preference.
+    required_fields:
+      - title
+      - decision
+      - scope
+      - source
+      - last_verified
+  failure_mode:
+    description: A recurring problem and its known diagnostic path.
+    required_fields:
+      - title
+      - symptoms
+      - likely_causes
+      - checks
+      - fixes
+      - last_seen
+  research_anchor:
+    description: A recurring source or paper that anchors future research.
+    required_fields:
+      - title
+      - url
+      - why_it_matters
+      - caveats
+      - last_checked
+  workflow_pattern:
+    description: A reusable multi-agent or self-correction workflow.
+    required_fields:
+      - title
+      - when_to_use
+      - stages
+      - exit_criteria
+
+retention_rules:
+  keep:
+    - Stable conventions.
+    - Repeated failure modes.
+    - Source links that will be reused.
+    - User preferences that affect future work.
+  avoid:
+    - Credentials or secrets.
+    - Long copyrighted excerpts.
+    - One-off terminal noise.
+    - Unverified claims.
+    - Personal speculation that does not change future execution.

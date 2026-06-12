@@ -1,0 +1,64 @@
+version: 1
+name: vla-agent-pack
+description: Reusable agents for VLA research, Sphinx documentation, GitHub Pages deployment, review, and memory.
+
+orchestration:
+  entry_agent: orchestrator
+  default_pattern: staged_fanout
+  handoff_rules:
+    - Use a single agent for narrow edits with clear requirements.
+    - Fan out research, implementation, visual QA, and review when tasks can proceed independently.
+    - Run expert review after implementation and before final memory curation.
+    - Keep durable memory updates as the last stage, after outcomes are known.
+
+agents:
+  orchestrator:
+    file: agents/orchestrator.agent.md
+    purpose: Break goals into research, implementation, review, deploy, and memory tasks.
+    can_handoff_to:
+      - vla-researcher
+      - sphinx-docs-builder
+      - github-pages-deployer
+      - visual-qa
+      - expert-reviewer
+      - memory-curator
+  vla-researcher:
+    file: agents/vla-researcher.agent.md
+    purpose: Gather and audit evidence for VLA datasets, recipes, survey papers, and papers.
+    skill: skills/vla-researcher/SKILL.md
+  sphinx-docs-builder:
+    file: agents/sphinx-docs-builder.agent.md
+    purpose: Maintain Sphinx Book Theme docs, source structure, and local build quality.
+    skill: skills/sphinx-book-docs/SKILL.md
+  github-pages-deployer:
+    file: agents/github-pages-deployer.agent.md
+    purpose: Maintain GitHub Actions Pages publishing and diagnose public-site drift.
+    skill: skills/github-pages-actions/SKILL.md
+  visual-qa:
+    file: agents/visual-qa.agent.md
+    purpose: Inspect rendered pages, screenshots, asset paths, layout, and theme fidelity.
+  expert-reviewer:
+    file: agents/expert-reviewer.agent.md
+    purpose: Review research claims, code quality, docs quality, and public-facing tone.
+  memory-curator:
+    file: agents/memory-curator.agent.md
+    purpose: Extract durable memory, remove noise, and maintain session learnings.
+    skill: skills/agent-pack-maintenance/SKILL.md
+
+workflows:
+  research_to_public_docs:
+    stages:
+      - orchestrator: define scope, artifacts, and acceptance tests
+      - vla-researcher: collect source-backed evidence and open questions
+      - sphinx-docs-builder: edit docs and run local checks
+      - visual-qa: inspect screenshots and static assets
+      - expert-reviewer: reject weak claims and process artifacts
+      - github-pages-deployer: publish through Actions and verify live behavior
+      - memory-curator: capture reusable lessons
+  broken_public_site:
+    stages:
+      - github-pages-deployer: inspect Actions, artifact, Pages source, and live URL
+      - sphinx-docs-builder: fix source/build issues
+      - visual-qa: confirm browser rendering
+      - expert-reviewer: check no shortcut was introduced
+      - memory-curator: record failure mode and fix
